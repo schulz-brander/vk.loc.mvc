@@ -19,12 +19,10 @@ class UserController extends Controller{
     }
     
     public function login(){
-        $this->renderView('user/login');
-
         $authUser = new User();
         $authUser->auth($_POST); //метод авторизации с параметром пост
         $data = $authUser->showData; //через него получаем данные с базы - мыло, пароль и др.
-
+        
         if (!empty($_POST) && $_POST['eMail'] == $data['e_mail'] && $_POST['password'] == $data['pass']) {
             $_SESSION['id'] = $data['id'];
             $_SESSION['userName'] = $data['user_name'];
@@ -35,5 +33,9 @@ class UserController extends Controller{
             $this->renderView('user/login', array('result' => 'Неверно введено имя или пароль!'));
             return;
         }
+        if (empty($_POST) && !empty($_SESSION['id']) && !empty($_SESSION['userName'])) {
+            $this->renderView('user/login', array('result' => $authUser->authResult));
+        }
+        $this->renderView('user/login');
     }
 }

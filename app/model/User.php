@@ -37,11 +37,15 @@ class User extends DB{
             $get->execute();
             $get->setFetchMode(PDO::FETCH_ASSOC);
             $this->showData = $get->fetch();
-
-            try{
-                $this->authResult = 'Здравствуйте, ' . $this->showData['user_name'] . '! Ваш ID ' . $this->showData['id'];
-            } catch(Exception $e) {
-                $this->authResult = $e->getMessage();
+            
+            if(empty($_SESSION['id']) && empty($_SESSION['userName'])){
+                try{
+                    $this->authResult = '(showData) Здравствуйте, ' . $this->showData['user_name'] . '! Ваш ID ' . $this->showData['id'];
+                } catch(Exception $e) {
+                    $this->authResult = $e->getMessage();
+                }
+            }else{
+                $this->authResult = '(SESSION) Здравствуйте, ' . $_SESSION['userName'] . '! Ваш ID ' . $_SESSION['id'];
             }
     }
 }

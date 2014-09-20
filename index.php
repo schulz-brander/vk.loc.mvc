@@ -25,7 +25,7 @@ function my_autoloader($class) {
 spl_autoload_register('my_autoloader');
 
 $route = ucfirst($_GET['r']) . 'Controller';
-$action = ucfirst($_GET['a']);
+$action = ($_GET['a']);
 
 $controller = new $route;
 $controller->{$action}();

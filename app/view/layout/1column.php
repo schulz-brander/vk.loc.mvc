@@ -8,7 +8,7 @@
 <?php include BASE_PATH . '/app/view/header.php' ?>
     
     <?php include BASE_PATH . '/app/view/' . $view . '.php' ?>
-    
+  
 <?php include BASE_PATH . '/app/view/footer.php' ?>
 </body>
 </html>
