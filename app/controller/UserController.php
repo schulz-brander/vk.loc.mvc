@@ -3,19 +3,21 @@
 class UserController extends Controller{
 
     public function registration(){
-        $this->renderView('user/registration');
         
         if(!empty($_POST)){
             $user = new User();
             if($user->unique($_POST) == 0){
                 $user->addUser($_POST);
-                $this->renderView('user/registration', array('result' => $user->result)); //не понимаю зачем второй атрибут???
-                return; //и что мы здесь возвращаем???
+                return $this->renderView('user/registration', array('result' => $user->result));
             }
             else{
-                echo "Данный E-mail занят!";
+                header('Refresh: 5');
+                return $this->renderView('user/registration', 
+                                        array('result' => "Данный E-mail занят! Через 5 сек Вы будете перенаправлены на страницу "
+                                            . "регистрации. <a href='index.php?r=user&a=registration'>Не ждать!</a>"));
             }
         }
+    $this->renderView('user/registration');
     }
     
     public function login(){
@@ -37,5 +39,11 @@ class UserController extends Controller{
             $this->renderView('user/login', array('result' => $authUser->authResult));
         }
         $this->renderView('user/login');
+    }
+        
+    public function logout(){
+        $userLogOut = new User;
+        $userLogOut->goOut();
+        $this->renderView('user/logout');
     }
 }

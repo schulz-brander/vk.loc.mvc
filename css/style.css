@@ -273,7 +273,7 @@ body{
 /* Конец формы авторизации */
 
 /* Приветствие при авторизации */
-#hello, .hello{
+#hello, .hello, .hello a{
 	font-size: 14px;
 	color: #ffffff;
 	text-align: right;

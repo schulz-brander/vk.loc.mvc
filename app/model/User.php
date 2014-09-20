@@ -48,4 +48,8 @@ class User extends DB{
                 $this->authResult = '(SESSION) Здравствуйте, ' . $_SESSION['userName'] . '! Ваш ID ' . $_SESSION['id'];
             }
     }
+    
+    public function goOut(){
+            session_destroy();
+    }
 }
